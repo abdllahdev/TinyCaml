@@ -1,0 +1,31 @@
+(lang dune 3.10)
+
+(name TinyCaml)
+
+(generate_opam_files true)
+
+(source
+ (github abdllahdev/TinyCaml))
+
+(authors "Abdullah Fathy Elsayed")
+
+(maintainers "Abdullah Fathy Elsayed")
+
+(license MIT)
+
+(package
+ (name TinyCaml)
+ (synopsis "Tiny version of OCaml")
+ (description "TinyCaml is just a subset of OCaml")
+ (depends ocaml dune)
+ (tags
+  (pl
+   ocaml
+   "type-theory"
+   "lambda-calculus"
+   "hindley-milner"
+   "type-inference"
+   "functional-programming"
+   "static-typing")))
+
+; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project
