@@ -13,11 +13,13 @@
 
 (license MIT)
 
+(using menhir 2.1)
+
 (package
  (name TinyCaml)
  (synopsis "Tiny version of OCaml")
  (description "TinyCaml is just a subset of OCaml")
- (depends ocaml dune)
+ (depends ocaml dune fmt core)
  (tags
   (pl
    ocaml

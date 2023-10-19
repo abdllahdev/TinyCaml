@@ -1,2 +1,8 @@
 (library
- (name TinyCaml))
+ (name TinyCaml)
+ (libraries core fmt))
+
+(ocamllex lexer)
+
+(menhir
+ (modules parser))

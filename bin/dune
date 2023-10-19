@@ -1,4 +1,4 @@
 (executable
  (public_name TinyCaml)
  (name main)
- (libraries TinyCaml))
+ (libraries TinyCaml cmdliner))

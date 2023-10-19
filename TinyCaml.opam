@@ -16,11 +16,12 @@ tags: [
   "static-typing"
 ]
 homepage: "https://github.com/abdllahdev/TinyCaml"
-doc: "https://url/to/documentation"
 bug-reports: "https://github.com/abdllahdev/TinyCaml/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.10"}
+  "fmt"
+  "core"
   "odoc" {with-doc}
 ]
 build: [
