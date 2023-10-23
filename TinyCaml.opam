@@ -4,7 +4,7 @@ synopsis: "Tiny version of OCaml"
 description: "TinyCaml is just a subset of OCaml"
 maintainer: ["Abdullah Fathy Elsayed"]
 authors: ["Abdullah Fathy Elsayed"]
-license: "MIT"
+license: "LGPL-3.0-or-later"
 tags: [
   "pl"
   "ocaml"

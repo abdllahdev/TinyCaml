@@ -51,22 +51,22 @@ ast:
 	;
 
 expr:
-	| i = INT { Int ($startpos, i) }
-	| id = ID { Var ($startpos, id) }
-	| TRUE { Bool ($startpos, true) }
-	| FALSE { Bool ($startpos, false) }
-	| NOT; e = expr; { UnaryOp ($startpos, Not, e) }
-	| e1 = expr; AND; e2 = expr { BinaryOp ($startpos, And, e1, e2) }
-	| e1 = expr; OR; e2 = expr { BinaryOp ($startpos, Or, e1, e2) }
-	| e1 = expr; LT; e2 = expr { BinaryOp ($startpos, Lt, e1, e2) }
-	| e1 = expr; GT; e2 = expr { BinaryOp ($startpos, Gt, e1, e2) }
-	| e1 = expr; EQ; e2 = expr { BinaryOp ($startpos, Eq, e1, e2) }
-	| e1 = expr; NOT_EQ; e2 = expr { BinaryOp ($startpos, NotEq, e1, e2) }
-	| e1 = expr; LTE; e2 = expr { BinaryOp ($startpos, Lte, e1, e2) }
-	| e1 = expr; GTE; e2 = expr { BinaryOp ($startpos, Gte, e1, e2) }
-  | e1 = expr; TIMES; e2 = expr { BinaryOp ($startpos, Mult, e1, e2) } 
-	| e1 = expr; PLUS; e2 = expr { BinaryOp ($startpos, Add, e1, e2) }
-	| LET; id = ID; EQUALS; e1 = expr; IN; e2 = expr { Let ($startpos, id, e1, e2) }
-	| IF; e1 = expr; THEN; e2 = expr; ELSE; e3 = expr { If ($startpos, e1, e2, e3) }
+	| i = INT { ExprInt ($startpos, i) }
+	| id = ID { ExprVar ($startpos, id) }
+	| TRUE { ExprBool ($startpos, true) }
+	| FALSE { ExprBool ($startpos, false) }
+	| NOT; e = expr; { ExprUnaryOp ($startpos, Not, e) }
+	| e1 = expr; AND; e2 = expr { ExprBinaryOp ($startpos, And, e1, e2) }
+	| e1 = expr; OR; e2 = expr { ExprBinaryOp ($startpos, Or, e1, e2) }
+	| e1 = expr; LT; e2 = expr { ExprBinaryOp ($startpos, Lt, e1, e2) }
+	| e1 = expr; GT; e2 = expr { ExprBinaryOp ($startpos, Gt, e1, e2) }
+	| e1 = expr; EQ; e2 = expr { ExprBinaryOp ($startpos, Eq, e1, e2) }
+	| e1 = expr; NOT_EQ; e2 = expr { ExprBinaryOp ($startpos, NotEq, e1, e2) }
+	| e1 = expr; LTE; e2 = expr { ExprBinaryOp ($startpos, Lte, e1, e2) }
+	| e1 = expr; GTE; e2 = expr { ExprBinaryOp ($startpos, Gte, e1, e2) }
+  | e1 = expr; TIMES; e2 = expr { ExprBinaryOp ($startpos, Mult, e1, e2) } 
+	| e1 = expr; PLUS; e2 = expr { ExprBinaryOp ($startpos, Add, e1, e2) }
+	| LET; id = ID; EQUALS; e1 = expr; IN; e2 = expr { ExprLet ($startpos, id, e1, e2) }
+	| IF; e1 = expr; THEN; e2 = expr; ELSE; e3 = expr { ExprIf ($startpos, e1, e2, e3) }
 	| LPAREN; e = expr; RPAREN { e } 
 	;

@@ -1,11 +1,12 @@
 open Sys
 open Core
 open Cmdliner
+open TinyCaml
 
 let parse_with_error lexbuf =
-  try Ok (TinyCaml.Parser.ast TinyCaml.Lexer.read_token lexbuf)
-  with TinyCaml.Parser.Error ->
-    TinyCaml.Errors.raise_syntax_error lexbuf.lex_curr_p (Lexing.lexeme lexbuf)
+  try Ok (Parser.ast TinyCaml.Lexer.read_token lexbuf)
+  with Parser.Error ->
+    Errors.raise_syntax_error lexbuf.lex_curr_p (Lexing.lexeme lexbuf)
 
 let parse_file filename =
   let file_content = In_channel.read_all filename in
@@ -18,10 +19,11 @@ let input_file =
 
 let main input_file =
   let input_file = Fmt.str "%s/%s" (getcwd ()) input_file in
-  Fmt.str "Parsing %s\n" input_file |> print_string;
+  Fmt.str "Interpreting %s\n" input_file |> print_string;
   match parse_file input_file with
-  | Ok ast -> TinyCaml.Formatter.string_of_expr ast ~indent:0 |> print_endline
-  | Error error -> Core.Error.to_string_hum error |> print_string
+  | Ok ast ->
+      Eval.eval Eval.empty_env ast |> Formatter.string_of_value |> print_endline
+  | Error error -> Core.Error.to_string_hum error |> print_endline
 
 let cmd =
   let doc = "TinyCaml" in

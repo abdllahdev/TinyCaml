@@ -1,4 +1,5 @@
 let x = 100 in
-  if x > 50
-  then true
-  else false
+let y = 50 in
+  if x + y < 150
+  then x + y
+  else x * y

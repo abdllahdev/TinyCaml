@@ -11,7 +11,7 @@
 
 (maintainers "Abdullah Fathy Elsayed")
 
-(license MIT)
+(license LGPL-3.0-or-later)
 
 (using menhir 2.1)
 
