@@ -39,8 +39,10 @@ rule read_token =
   | "+"        { PLUS }
   | "*"        { TIMES }
   | "="        { EQUALS }
+  | "->"       { ARROW }
   | "true"     { TRUE }
   | "false"    { FALSE }
+  | "fun"      { FUN }
   | "let"      { LET }
   | "in"       { IN }
   | "if"       { IF }

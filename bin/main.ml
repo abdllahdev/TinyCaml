@@ -22,7 +22,7 @@ let main input_file =
   Fmt.str "Interpreting %s\n" input_file |> print_string;
   match parse_file input_file with
   | Ok ast ->
-      Eval.eval Eval.empty_env ast |> Formatter.string_of_value |> print_endline
+      Eval.eval Eval.empty_env ast |> Eval.string_of_value |> print_endline
   | Error error -> Core.Error.to_string_hum error |> print_endline
 
 let cmd =

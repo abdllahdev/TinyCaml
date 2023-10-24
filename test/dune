@@ -1,0 +1,3 @@
+(test
+ (name TinyCaml)
+ (libraries TinyCaml))

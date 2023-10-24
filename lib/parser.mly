@@ -1,31 +1,16 @@
 %{
 open Ast
+
+let rec apply loc e es = 
+	match es with
+	| [] -> failwith "precondition violated"
+  | [e'] -> ExprApp (loc, e, e')
+	| h :: ((_::_) as t) -> apply loc (ExprApp (loc, e, h)) t
 %}
 
 %token <string> ID
 %token <int> INT
-%token LPAREN
-%token RPAREN
-%token NOT
-%token AND
-%token OR
-%token LT
-%token GT
-%token EQ
-%token NOT_EQ
-%token LTE
-%token GTE
-%token PLUS
-%token TIMES
-%token EQUALS
-%token TRUE
-%token FALSE
-%token LET
-%token IN
-%token IF
-%token THEN
-%token ELSE
-%token EOF
+%token LPAREN RPAREN ARROW NOT AND OR LT GT EQ NOT_EQ LTE GTE PLUS TIMES EQUALS TRUE FALSE FUN LET IN IF THEN ELSE EOF
 
 %nonassoc IN
 %nonassoc ELSE
@@ -51,10 +36,7 @@ ast:
 	;
 
 expr:
-	| i = INT { ExprInt ($startpos, i) }
-	| id = ID { ExprVar ($startpos, id) }
-	| TRUE { ExprBool ($startpos, true) }
-	| FALSE { ExprBool ($startpos, false) }
+	| basic_expr = basic_expr { basic_expr }
 	| NOT; e = expr; { ExprUnaryOp ($startpos, Not, e) }
 	| e1 = expr; AND; e2 = expr { ExprBinaryOp ($startpos, And, e1, e2) }
 	| e1 = expr; OR; e2 = expr { ExprBinaryOp ($startpos, Or, e1, e2) }
@@ -66,7 +48,20 @@ expr:
 	| e1 = expr; GTE; e2 = expr { ExprBinaryOp ($startpos, Gte, e1, e2) }
   | e1 = expr; TIMES; e2 = expr { ExprBinaryOp ($startpos, Mult, e1, e2) } 
 	| e1 = expr; PLUS; e2 = expr { ExprBinaryOp ($startpos, Add, e1, e2) }
+	| FUN; param = ID; ARROW; e = expr; { ExprFun ($startpos, param, e) }
 	| LET; id = ID; EQUALS; e1 = expr; IN; e2 = expr { ExprLet ($startpos, id, e1, e2) }
 	| IF; e1 = expr; THEN; e2 = expr; ELSE; e3 = expr { ExprIf ($startpos, e1, e2, e3) }
-	| LPAREN; e = expr; RPAREN { e } 
+	| e = basic_expr; es = basic_expr+ { apply $startpos e es }
+	;
+
+basic_expr:
+	| literal = literal { literal }
+	| id = ID { ExprVar ($startpos, id) }
+	| LPAREN; e = expr; RPAREN { e }
+	;
+
+literal:
+	| i = INT { ExprInt ($startpos, i) }
+	| TRUE { ExprBool ($startpos, true) }
+	| FALSE { ExprBool ($startpos, false) }
 	;
